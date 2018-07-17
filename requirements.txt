@@ -6,6 +6,7 @@
 #
 argh==0.26.2              # via watchdog
 astroid==1.6.5            # via pylint
+humanfriendly==4.15.1
 isort==4.3.4              # via pylint
 lazy-object-proxy==1.3.1  # via astroid
 mccabe==0.6.1             # via pylint

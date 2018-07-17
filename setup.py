@@ -9,6 +9,7 @@ setuptools.setup(
     install_requires = [
         'watchdog>=0.8.3,<0.9',
         'pylint>=1.9.2',
-        'Pillow>=5.2.0,<5.3'
+        'Pillow>=5.2.0,<5.3',
+        'humanfriendly>=4.15.1,<4.16'
     ]
 )

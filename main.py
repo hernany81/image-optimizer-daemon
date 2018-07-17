@@ -29,6 +29,7 @@ if __name__ == "__main__":
     ))
 
     # Command line processing
+    logger:logging.Logger = logging.getLogger('main')
     parser:argparse.ArgumentParser = argparse.ArgumentParser(description='Command to reduce image size and lossless compression')
     parser.add_argument('inputDir', help='Input directory to be monitored')
     parser.add_argument('outputDir', help='Output directory where transformed images will be saved')
@@ -36,6 +37,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Image handler setup
+    logger.info('Process started. Monitoring directory: {inputDir}. Output directory: {outputDir}'.format(inputDir=args.inputDir, outputDir=args.outputDir))
     observer:Observer = Observer()
     event_handler:ImageHandler = ImageHandler(size_ratio=args.ratio, dest_path=args.outputDir)
     observer.schedule(event_handler, args.inputDir)
