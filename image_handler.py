@@ -13,6 +13,7 @@ class ImageHandler(PatternMatchingEventHandler):
         self._size_ratio:float = size_ratio
         self._dest_path:str = dest_path
         self._logger:logging.Logger = logging.getLogger('com.ImageHandler')
+        self._ext:str = '-new.png'
 
     def on_created(self, event:FileCreatedEvent):
         self._logger.debug('New file detected {path}'.format(path = event.src_path))
@@ -63,7 +64,8 @@ class ImageHandler(PatternMatchingEventHandler):
         '''
 
         path_components:Tuple[str, str] = os.path.split(image_path)
-        dest_image_path:str = os.path.join(self._dest_path, path_components[1])
+        filename_components:Tuple[str, str, str] = path_components[1].rpartition('.png')
+        dest_image_path:str = os.path.join(self._dest_path, filename_components[0] + self._ext)
 
         if os.path.exists(dest_image_path):
             os.remove(dest_image_path)
@@ -73,7 +75,7 @@ class ImageHandler(PatternMatchingEventHandler):
         Uses pngquant to reduce image size
         '''
 
-        command_args:List[str] = ['pngquant', src_path]
+        command_args:List[str] = ['pngquant', '--ext', self._ext, src_path]
         command_result:subprocess.CompletedProcess = subprocess.run(command_args)
         self._logger.debug('pngquant executed {data}'.format(data = command_result))
         os.remove(src_path)
